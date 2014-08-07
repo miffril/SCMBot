@@ -117,375 +117,300 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="scanGroupBox.Text" xml:space="preserve">
-    <value>Предметы для сканирования</value>
-  </data>
-  <data name="groupBox4.Text" xml:space="preserve">
-    <value>Найти предмет</value>
-  </data>
-  <data name="groupBox3.Text" xml:space="preserve">
-    <value>Мой инвентарь</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="NameLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>23, 12</value>
-  </data>
   <data name="NameLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>57, 13</value>
+    <value>28, 13</value>
   </data>
   <data name="NameLabel.Text" xml:space="preserve">
-    <value>Название</value>
+    <value>Nom</value>
   </data>
   <data name="button3.Text" xml:space="preserve">
-    <value>Копия</value>
+    <value>Copier</value>
   </data>
   <data name="label14.Location" type="System.Drawing.Point, System.Drawing">
-    <value>33, 36</value>
+    <value>4, 36</value>
   </data>
   <data name="label14.Size" type="System.Drawing.Size, System.Drawing">
-    <value>46, 13</value>
+    <value>82, 13</value>
   </data>
   <data name="label14.Text" xml:space="preserve">
-    <value>Ссылка</value>
+    <value>Lien vers l'objet</value>
   </data>
   <data name="scanButton.Text" xml:space="preserve">
-    <value>Старт</value>
+    <value>Démarrer</value>
   </data>
   <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
-    <value>18, 60</value>
+    <value>11, 60</value>
   </data>
   <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 13</value>
+    <value>69, 13</value>
   </data>
   <data name="label9.Text" xml:space="preserve">
-    <value>Ваша цена</value>
+    <value>Prix souhaité</value>
+  </data>
+  <data name="buyCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 107</value>
   </data>
   <data name="buyCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 17</value>
+    <value>83, 17</value>
   </data>
   <data name="buyCheckBox.Text" xml:space="preserve">
-    <value>Купить:</value>
-  </data>
-  <data name="ExtraGroup.Text" xml:space="preserve">
-    <value>Перепродать</value>
+    <value>qté. achat :</value>
   </data>
   <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>33, 13</value>
+    <value>37, 13</value>
   </data>
   <data name="label7.Text" xml:space="preserve">
-    <value>Цена</value>
+    <value>Valeur</value>
   </data>
-  <data name="resellComboBox.Items" xml:space="preserve">
-    <value>Нет</value>
-  </data>
-  <data name="resellComboBox.Items1" xml:space="preserve">
-    <value>Наценка</value>
-  </data>
-  <data name="resellComboBox.Items2" xml:space="preserve">
-    <value>Ваша цена</value>
-  </data>
-  <data name="label12.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 84</value>
+  <data name="ExtraGroup.Text" xml:space="preserve">
+    <value>Revendre pour</value>
   </data>
   <data name="label12.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 13</value>
+    <value>30, 13</value>
   </data>
   <data name="label12.Text" xml:space="preserve">
-    <value>Задержка</value>
-  </data>
-  <data name="button4.Text" xml:space="preserve">
-    <value>Смотреть график</value>
-  </data>
-  <data name="tabPage1.Text" xml:space="preserve">
-    <value>Страница предмета</value>
+    <value>Délai</value>
   </data>
   <data name="columnHeader10.Text" xml:space="preserve">
-    <value>Статус</value>
+    <value>Statut</value>
   </data>
   <data name="columnHeader11.Text" xml:space="preserve">
-    <value>Имя</value>
+    <value>Nom</value>
   </data>
   <data name="columnHeader12.Text" xml:space="preserve">
-    <value>Ваша цена</value>
-  </data>
-  <data name="contextMenuStrip3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 164</value>
+    <value>Prix souhaité</value>
   </data>
   <data name="deleteMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>205, 22</value>
+    <value>185, 22</value>
   </data>
   <data name="deleteMenuItem.Text" xml:space="preserve">
-    <value>Удалить</value>
+    <value>Supprimer</value>
   </data>
   <data name="startSelectedMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>205, 22</value>
+    <value>185, 22</value>
   </data>
   <data name="startSelectedMenuItem.Text" xml:space="preserve">
-    <value>Старт выделенное</value>
+    <value>Démarrer la sélection</value>
   </data>
   <data name="stopSelectedMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>205, 22</value>
+    <value>185, 22</value>
   </data>
   <data name="stopSelectedMenuItem.Text" xml:space="preserve">
-    <value>Стоп выделенное</value>
+    <value>Arrêter la sélection</value>
   </data>
   <data name="startAllMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>205, 22</value>
+    <value>185, 22</value>
   </data>
   <data name="startAllMenuItem.Text" xml:space="preserve">
-    <value>Старт все</value>
+    <value>Tout démarrer</value>
   </data>
   <data name="stopAllMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>205, 22</value>
+    <value>185, 22</value>
   </data>
   <data name="stopAllMenuItem.Text" xml:space="preserve">
-    <value>Стоп все</value>
+    <value>Tout arrêter</value>
   </data>
-  <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>202, 6</value>
+  <data name="contextMenuStrip3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>186, 114</value>
   </data>
-  <data name="exportListToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>205, 22</value>
-  </data>
-  <data name="exportListToolStripMenuItem.Text" xml:space="preserve">
-    <value>Экспортировать список</value>
-  </data>
-  <data name="importListToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>205, 22</value>
-  </data>
-  <data name="importListToolStripMenuItem.Text" xml:space="preserve">
-    <value>Импортировать список</value>
+  <data name="tabPage1.Text" xml:space="preserve">
+    <value>Page d'objet</value>
   </data>
   <data name="tabPage2.Text" xml:space="preserve">
-    <value>Новые поступления</value>
+    <value>Nouvellement listé</value>
   </data>
-  <data name="columnHeader13.Text" xml:space="preserve">
-    <value>Статус</value>
+  <data name="button4.Text" xml:space="preserve">
+    <value>Regarder le graphique</value>
   </data>
-  <data name="columnHeader14.Text" xml:space="preserve">
-    <value>Имя</value>
+  <data name="scanGroupBox.Text" xml:space="preserve">
+    <value>Analyse des objets</value>
   </data>
-  <data name="columnHeader15.Text" xml:space="preserve">
-    <value>Ваша цена</value>
+  <data name="searchBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>372, 20</value>
   </data>
-  <data name="nextButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>129, 45</value>
-  </data>
-  <data name="columnHeader6.Text" xml:space="preserve">
-    <value>Тип</value>
+  <data name="searchBox.Text" xml:space="preserve">
+    <value>Entrez un nom</value>
   </data>
   <data name="columnHeader7.Text" xml:space="preserve">
-    <value>Название</value>
+    <value>Nom</value>
   </data>
   <data name="columnHeader8.Text" xml:space="preserve">
-    <value>Стартовая цена</value>
+    <value>Prix de départ</value>
   </data>
   <data name="columnHeader9.Text" xml:space="preserve">
-    <value>Количество</value>
+    <value>Quantité</value>
+  </data>
+  <data name="buyNowButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>585, 16</value>
+  </data>
+  <data name="buyNowButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 25</value>
   </data>
   <data name="buyNowButton.Text" xml:space="preserve">
-    <value>Купить</value>
-  </data>
-  <data name="contextMenuStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>254, 92</value>
-  </data>
-  <data name="addtoScan.Text" xml:space="preserve">
-    <value>Сканер</value>
+    <value>Achat immédiat</value>
   </data>
   <data name="selectedItemToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>253, 22</value>
+    <value>243, 22</value>
   </data>
   <data name="selectedItemToolStripMenuItem.Text" xml:space="preserve">
-    <value>Отмеченные в текущую вкладку</value>
+    <value>Mettre dans l'onglet sélectionné</value>
   </data>
   <data name="checkedToBothSourcesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>253, 22</value>
+    <value>243, 22</value>
   </data>
   <data name="checkedToBothSourcesToolStripMenuItem.Text" xml:space="preserve">
-    <value>Отмеченные в обе вкладки</value>
+    <value>Mettre dans les 2 onglets</value>
   </data>
   <data name="fullSetToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>253, 22</value>
+    <value>243, 22</value>
   </data>
   <data name="fullSetToolStripMenuItem.Text" xml:space="preserve">
-    <value>Полный набор</value>
+    <value>Liste complète</value>
   </data>
   <data name="emptyTabToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>253, 22</value>
+    <value>243, 22</value>
   </data>
   <data name="emptyTabToolStripMenuItem.Text" xml:space="preserve">
-    <value>Пустая вкладка</value>
+    <value>Onglet vide</value>
   </data>
-  <data name="prevButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>74, 45</value>
+  <data name="contextMenuStrip1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>244, 92</value>
   </data>
-  <data name="label13.Location" type="System.Drawing.Point, System.Drawing">
-    <value>103, 51</value>
+  <data name="addtoScan.Location" type="System.Drawing.Point, System.Drawing">
+    <value>487, 16</value>
   </data>
-  <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 13</value>
+  <data name="addtoScan.Size" type="System.Drawing.Size, System.Drawing">
+    <value>92, 25</value>
   </data>
-  <data name="label11.Text" xml:space="preserve">
-    <value>Страница: </value>
+  <data name="addtoScan.Text" xml:space="preserve">
+    <value>Aux scans</value>
+  </data>
+  <data name="searchButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>389, 16</value>
+  </data>
+  <data name="searchButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>92, 25</value>
   </data>
   <data name="searchButton.Text" xml:space="preserve">
-    <value>Поиск</value>
+    <value>Chercher</value>
   </data>
-  <data name="randomDelayBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>520, 21</value>
-  </data>
-  <data name="randomDelayBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 17</value>
-  </data>
-  <data name="randomDelayBox.Text" xml:space="preserve">
-    <value>Случайно</value>
-  </data>
-  <data name="label19.Location" type="System.Drawing.Point, System.Drawing">
-    <value>94, 52</value>
-  </data>
-  <data name="label19.Size" type="System.Drawing.Size, System.Drawing">
-    <value>57, 13</value>
-  </data>
-  <data name="label19.Text" xml:space="preserve">
-    <value>Получите:</value>
-  </data>
-  <data name="filterTypeBox.Items" xml:space="preserve">
-    <value>Тип</value>
-  </data>
-  <data name="filterTypeBox.Items1" xml:space="preserve">
-    <value>Имя</value>
-  </data>
-  <data name="filterTypeBox.Items2" xml:space="preserve">
-    <value>Цена</value>
-  </data>
-  <data name="filterTypeBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>521, 48</value>
-  </data>
-  <data name="label18.Location" type="System.Drawing.Point, System.Drawing">
-    <value>455, 52</value>
-  </data>
-  <data name="label18.Size" type="System.Drawing.Size, System.Drawing">
-    <value>62, 13</value>
-  </data>
-  <data name="label18.Text" xml:space="preserve">
-    <value>Фильтр по</value>
-  </data>
-  <data name="textBox2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>599, 48</value>
-  </data>
-  <data name="textBox2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 20</value>
-  </data>
-  <data name="label17.Location" type="System.Drawing.Point, System.Drawing">
-    <value>489, 22</value>
-  </data>
-  <data name="label17.Size" type="System.Drawing.Size, System.Drawing">
-    <value>21, 13</value>
-  </data>
-  <data name="label17.Text" xml:space="preserve">
-    <value>мс</value>
-  </data>
-  <data name="sellDelayBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>411, 19</value>
-  </data>
-  <data name="label16.Location" type="System.Drawing.Point, System.Drawing">
-    <value>347, 22</value>
-  </data>
-  <data name="label16.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 13</value>
-  </data>
-  <data name="label16.Text" xml:space="preserve">
-    <value>Задержка</value>
-  </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>223, 52</value>
+  <data name="groupBox4.Text" xml:space="preserve">
+    <value>Chercher un objet</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>57, 13</value>
+    <value>61, 13</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
-    <value>Заплатят:</value>
-  </data>
-  <data name="button2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>347, 46</value>
+    <value>Votre prix :</value>
   </data>
   <data name="button2.Text" xml:space="preserve">
-    <value>Назначить</value>
-  </data>
-  <data name="columnHeader1.Text" xml:space="preserve">
-    <value>Тип</value>
+    <value>Fixer prix</value>
   </data>
   <data name="columnHeader2.Text" xml:space="preserve">
-    <value>Название</value>
+    <value>Nom</value>
   </data>
   <data name="columnHeader3.Text" xml:space="preserve">
-    <value>Цена</value>
+    <value>Prix</value>
+  </data>
+  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 50</value>
   </data>
   <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 13</value>
+    <value>59, 13</value>
   </data>
   <data name="label6.Text" xml:space="preserve">
-    <value>Кол-во: </value>
+    <value>Quantité : </value>
   </data>
   <data name="SellButton.Text" xml:space="preserve">
-    <value>Продать</value>
-  </data>
-  <data name="comboBox3.Items" xml:space="preserve">
-    <value>Карточки</value>
-  </data>
-  <data name="comboBox3.Items8" xml:space="preserve">
-    <value>В продаже</value>
+    <value>Vendre</value>
   </data>
   <data name="button1.Text" xml:space="preserve">
-    <value>Загрузить</value>
+    <value>Charger</value>
   </data>
   <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>54, 52</value>
+    <value>63, 50</value>
   </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>26, 13</value>
+    <value>43, 13</value>
   </data>
   <data name="label4.Text" xml:space="preserve">
-    <value>Нет</value>
+    <value>Aucune</value>
   </data>
-  <data name="textBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>285, 48</value>
+  <data name="groupBox3.Text" xml:space="preserve">
+    <value>Mon inventaire</value>
   </data>
   <data name="label10.Location" type="System.Drawing.Point, System.Drawing">
-    <value>106, 21</value>
+    <value>132, 21</value>
   </data>
   <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>26, 13</value>
+    <value>37, 13</value>
   </data>
   <data name="label10.Text" xml:space="preserve">
-    <value>Нет</value>
+    <value>Aucun</value>
   </data>
   <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 13</value>
+    <value>84, 13</value>
   </data>
   <data name="label8.Text" xml:space="preserve">
-    <value>Баланс:</value>
+    <value>Porte-monnaie :</value>
   </data>
   <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>106, 40</value>
+    <value>132, 40</value>
   </data>
   <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>26, 13</value>
+    <value>27, 13</value>
   </data>
   <data name="label5.Text" xml:space="preserve">
-    <value>Нет</value>
-  </data>
-  <data name="groupBox2.Text" xml:space="preserve">
-    <value>Ваш аккаунт</value>
+    <value>Vide</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>32, 13</value>
+    <value>35, 13</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>Имя:</value>
+    <value>Nom :</value>
+  </data>
+  <data name="groupBox2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>119, 3</value>
+  </data>
+  <data name="groupBox2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>568, 64</value>
+  </data>
+  <data name="groupBox2.Text" xml:space="preserve">
+    <value>Informations du compte</value>
+  </data>
+  <data name="minimizeOnClosingToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>190, 22</value>
+  </data>
+  <data name="minimizeOnClosingToolStripMenuItem.Text" xml:space="preserve">
+    <value>Réduire à la fermeture</value>
+  </data>
+  <data name="settingsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>190, 22</value>
+  </data>
+  <data name="settingsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Paramètres</value>
+  </data>
+  <data name="helpToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>190, 22</value>
+  </data>
+  <data name="helpToolStripMenuItem.Text" xml:space="preserve">
+    <value>Aide</value>
+  </data>
+  <data name="aboutToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>190, 22</value>
+  </data>
+  <data name="aboutToolStripMenuItem.Text" xml:space="preserve">
+    <value>A propos</value>
+  </data>
+  <data name="exitToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>190, 22</value>
+  </data>
+  <data name="exitToolStripMenuItem.Text" xml:space="preserve">
+    <value>Quitter</value>
   </data>
   <data name="contextMenuStrip2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>205, 136</value>
+    <value>191, 114</value>
   </data>
   <data name="notifyIcon1.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -623,72 +548,35 @@
         AAAAAAAAAAAAAIABAACAAQAAwAMAAPAPAAA=
 </value>
   </data>
-  <data name="minimizeOnClosingToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>204, 22</value>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>86, 13</value>
   </data>
-  <data name="minimizeOnClosingToolStripMenuItem.Text" xml:space="preserve">
-    <value>Свернуть при закрытии</value>
+  <data name="label3.Text" xml:space="preserve">
+    <value>Nom d'utilisateur</value>
   </data>
-  <data name="settingsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>204, 22</value>
-  </data>
-  <data name="settingsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Настройки</value>
-  </data>
-  <data name="usingProxyStatuslStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>204, 22</value>
-  </data>
-  <data name="helpToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>204, 22</value>
-  </data>
-  <data name="helpToolStripMenuItem.Text" xml:space="preserve">
-    <value>Помощь</value>
-  </data>
-  <data name="aboutToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>204, 22</value>
-  </data>
-  <data name="aboutToolStripMenuItem.Text" xml:space="preserve">
-    <value>О программе</value>
-  </data>
-  <data name="exitToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>204, 22</value>
-  </data>
-  <data name="exitToolStripMenuItem.Text" xml:space="preserve">
-    <value>Выход</value>
+  <data name="label15.Location" type="System.Drawing.Point, System.Drawing">
+    <value>706, 9</value>
   </data>
   <data name="label15.Size" type="System.Drawing.Size, System.Drawing">
-    <value>81, 13</value>
+    <value>68, 13</value>
   </data>
   <data name="label15.Text" xml:space="preserve">
-    <value>Понравилось?</value>
+    <value>Vous aimez ?</value>
   </data>
   <data name="StatusLabel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>38, 17</value>
+    <value>27, 17</value>
   </data>
   <data name="StatusLabel1.Text" xml:space="preserve">
-    <value>Готов</value>
+    <value>Prêt</value>
   </data>
-  <data name="saveFileDialog1.Filter" xml:space="preserve">
-    <value>Бинарные файлы|*.bin</value>
+  <data name="loginButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 17</value>
   </data>
-  <data name="saveFileDialog1.Title" xml:space="preserve">
-    <value>Экспортировать список</value>
-  </data>
-  <data name="openFileDialog1.Filter" xml:space="preserve">
-    <value>Бинарные файлы|*.bin</value>
-  </data>
-  <data name="openFileDialog1.Title" xml:space="preserve">
-    <value>Импортировать список</value>
-  </data>
-  <data name="loginButton.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
+  <data name="loginButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>101, 27</value>
   </data>
   <data name="loginButton.Text" xml:space="preserve">
-    <value>Логин</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="loginButton.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
-    <value>Overlay</value>
+    <value>Connexion</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

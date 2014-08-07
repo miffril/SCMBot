@@ -118,163 +118,25 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="checkBox2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>80, 17</value>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>32, 13</value>
   </data>
-  <data name="checkBox2.Text" xml:space="preserve">
-    <value>Автологин</value>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Code</value>
   </data>
-  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 46</value>
+  <data name="codgroupBox.Text" xml:space="preserve">
+    <value>Entrez le code d'accès</value>
   </data>
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
     <value>44, 13</value>
   </data>
   <data name="label3.Text" xml:space="preserve">
-    <value>Пароль</value>
+    <value>Capcha</value>
   </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>27, 20</value>
-  </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>37, 13</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Логин</value>
-  </data>
-  <data name="groupBox1.Text" xml:space="preserve">
-    <value>Учетная запись</value>
-  </data>
-  <data name="groupBox2.Text" xml:space="preserve">
-    <value>Торговая площадка</value>
-  </data>
-  <data name="resDelayBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>142, 71</value>
-  </data>
-  <data name="label14.Size" type="System.Drawing.Size, System.Drawing">
-    <value>134, 13</value>
-  </data>
-  <data name="label14.Text" xml:space="preserve">
-    <value>Задержка перепродажи:</value>
-  </data>
-  <data name="label13.Location" type="System.Drawing.Point, System.Drawing">
-    <value>193, 45</value>
-  </data>
-  <data name="ignoreBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>193, 17</value>
-  </data>
-  <data name="ignoreBox.Text" xml:space="preserve">
-    <value>Игнор. предметы с предупрежд.</value>
-  </data>
-  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 21</value>
-  </data>
-  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>37, 13</value>
-  </data>
-  <data name="label7.Text" xml:space="preserve">
-    <value>Язык:</value>
-  </data>
-  <data name="comboBox2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>49, 18</value>
-  </data>
-  <data name="comboBox2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>136, 21</value>
-  </data>
-  <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>115, 423</value>
-  </data>
-  <data name="button1.Text" xml:space="preserve">
-    <value>Сохранить</value>
-  </data>
-  <data name="groupBox3.Text" xml:space="preserve">
-    <value>Интерфейс</value>
-  </data>
-  <data name="checkBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 121</value>
-  </data>
-  <data name="checkBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>126, 17</value>
-  </data>
-  <data name="checkBox1.Text" xml:space="preserve">
-    <value>Проигрывать звуки</value>
-  </data>
-  <data name="label12.Location" type="System.Drawing.Point, System.Drawing">
-    <value>158, 47</value>
-  </data>
-  <data name="label12.Size" type="System.Drawing.Size, System.Drawing">
-    <value>43, 13</value>
-  </data>
-  <data name="label12.Text" xml:space="preserve">
-    <value>на стр.</value>
-  </data>
-  <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 13</value>
-  </data>
-  <data name="label11.Text" xml:space="preserve">
-    <value>Результ-в поиска:</value>
-  </data>
-  <data name="searchResBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>113, 44</value>
-  </data>
-  <data name="searchResBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>39, 20</value>
-  </data>
-  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>37, 13</value>
-  </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>Язык:</value>
-  </data>
-  <data name="intLangComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>49, 94</value>
-  </data>
-  <data name="intLangComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>136, 21</value>
-  </data>
-  <data name="logCountBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>113, 19</value>
-  </data>
-  <data name="hideInventBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>163, 17</value>
-  </data>
-  <data name="hideInventBox.Text" xml:space="preserve">
-    <value>Спрятать "Мой инвентарь"</value>
-  </data>
-  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>168, 22</value>
-  </data>
-  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 13</value>
-  </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>строк</value>
-  </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>110, 13</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Очищать лог после:</value>
-  </data>
-  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>18, 407</value>
-  </data>
-  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 13</value>
-  </data>
-  <data name="label6.Text" xml:space="preserve">
-    <value>* Требуется перезапуск программы</value>
-  </data>
-  <data name="groupBox4.Text" xml:space="preserve">
-    <value>Сеть</value>
-  </data>
-  <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>135, 13</value>
-  </data>
-  <data name="label9.Text" xml:space="preserve">
-    <value>Параллельных запросов:</value>
+  <data name="capchgroupBox.Text" xml:space="preserve">
+    <value>Entrez le captcha</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Настройки</value>
+    <value>Vérification Steam Guard</value>
   </data>
 </root>

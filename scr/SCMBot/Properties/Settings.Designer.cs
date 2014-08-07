@@ -22,7 +22,8 @@ namespace SCMBot.Properties {
                 return defaultInstance;
             }
         }
-        
+
+        [global::System.Configuration.SettingsProviderAttribute(typeof(PortableSettingsProvider))]
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Username")]
@@ -34,7 +35,8 @@ namespace SCMBot.Properties {
                 this["lastLogin"] = value;
             }
         }
-        
+
+        [global::System.Configuration.SettingsProviderAttribute(typeof(PortableSettingsProvider))]
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -46,7 +48,8 @@ namespace SCMBot.Properties {
                 this["loginOnstart"] = value;
             }
         }
-        
+
+        [global::System.Configuration.SettingsProviderAttribute(typeof(PortableSettingsProvider))]
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("3000")]
@@ -59,9 +62,26 @@ namespace SCMBot.Properties {
             }
         }
 
+        [global::System.Configuration.SettingsProviderAttribute(typeof(PortableSettingsProvider))]
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public int resellDelay
+        {
+            get
+            {
+                return ((int)(this["resellDelay"]));
+            }
+            set
+            {
+                this["resellDelay"] = value;
+            }
+        }
+
+        [global::System.Configuration.SettingsProviderAttribute(typeof(PortableSettingsProvider))]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
         public int sellDelay
         {
             get
@@ -74,6 +94,7 @@ namespace SCMBot.Properties {
             }
         }
 
+        [global::System.Configuration.SettingsProviderAttribute(typeof(PortableSettingsProvider))]
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Password")]
@@ -86,6 +107,7 @@ namespace SCMBot.Properties {
             }
         }
 
+        [global::System.Configuration.SettingsProviderAttribute(typeof(PortableSettingsProvider))]
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         //Fucking important!
@@ -102,7 +124,7 @@ namespace SCMBot.Properties {
             }
         }
 
-
+        [global::System.Configuration.SettingsProviderAttribute(typeof(PortableSettingsProvider))]
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         //Fucking important!
@@ -119,18 +141,53 @@ namespace SCMBot.Properties {
             }
         }
 
+        [global::System.Configuration.SettingsProviderAttribute(typeof(PortableSettingsProvider))]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        //Fucking important!
+        [global::System.Configuration.SettingsSerializeAs(System.Configuration.SettingsSerializeAs.Binary)]
+        public global::SCMBot.MainFormParams formParams
+        {
+            get
+            {
+                return ((global::SCMBot.MainFormParams)(this["formParams"]));
+            }
+            set
+            {
+                this["formParams"] = value;
+            }
+        }
+
+        [global::System.Configuration.SettingsProviderAttribute(typeof(PortableSettingsProvider))]
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool firstRun {
+        public bool keepLog {
             get {
-                return ((bool)(this["firstRun"]));
+                return ((bool)(this["keepLog"]));
             }
             set {
+                this["keepLog"] = value;
+            }
+        }
+
+        [global::System.Configuration.SettingsProviderAttribute(typeof(PortableSettingsProvider))]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool firstRun
+        {
+            get
+            {
+                return ((bool)(this["firstRun"]));
+            }
+            set
+            {
                 this["firstRun"] = value;
             }
         }
-        
+
+        [global::System.Configuration.SettingsProviderAttribute(typeof(PortableSettingsProvider))]
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -142,7 +199,8 @@ namespace SCMBot.Properties {
                 this["hideInvent"] = value;
             }
         }
-        
+
+        [global::System.Configuration.SettingsProviderAttribute(typeof(PortableSettingsProvider))]
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("100")]
@@ -154,19 +212,24 @@ namespace SCMBot.Properties {
                 this["logCount"] = value;
             }
         }
-        
+
+        [global::System.Configuration.SettingsProviderAttribute(typeof(PortableSettingsProvider))]
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("5")]
-        public int numThreads {
-            get {
-                return ((int)(this["numThreads"]));
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public int reqDelay
+        {
+            get
+            {
+                return ((int)(this["reqDelay"]));
             }
-            set {
-                this["numThreads"] = value;
+            set
+            {
+                this["reqDelay"] = value;
             }
         }
 
+        [global::System.Configuration.SettingsProviderAttribute(typeof(PortableSettingsProvider))]
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("20")]
@@ -182,6 +245,7 @@ namespace SCMBot.Properties {
             }
         }
 
+        [global::System.Configuration.SettingsProviderAttribute(typeof(PortableSettingsProvider))]
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
@@ -193,7 +257,8 @@ namespace SCMBot.Properties {
                 this["Language"] = value;
             }
         }
-        
+
+        [global::System.Configuration.SettingsProviderAttribute(typeof(PortableSettingsProvider))]
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
@@ -205,7 +270,8 @@ namespace SCMBot.Properties {
                 this["InvType"] = value;
             }
         }
-        
+
+        [global::System.Configuration.SettingsProviderAttribute(typeof(PortableSettingsProvider))]
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -218,6 +284,23 @@ namespace SCMBot.Properties {
             }
         }
 
+        [global::System.Configuration.SettingsProviderAttribute(typeof(PortableSettingsProvider))]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool scanHTML
+        {
+            get
+            {
+                return ((bool)(this["scanHTML"]));
+            }
+            set
+            {
+                this["scanHTML"] = value;
+            }
+        }
+
+        [global::System.Configuration.SettingsProviderAttribute(typeof(PortableSettingsProvider))]
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("true")]
@@ -233,6 +316,40 @@ namespace SCMBot.Properties {
             }
         }
 
+
+        [global::System.Configuration.SettingsProviderAttribute(typeof(PortableSettingsProvider))]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public int StopFunds
+        {
+            get
+            {
+                return ((int)(this["stopFunds"]));
+            }
+            set
+            {
+                this["stopFunds"] = value;
+            }
+        }
+
+        [global::System.Configuration.SettingsProviderAttribute(typeof(PortableSettingsProvider))]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("true")]
+        public bool loadActual
+        {
+            get
+            {
+                return ((bool)(this["loadActual"]));
+            }
+            set
+            {
+                this["loadActual"] = value;
+            }
+        }
+
+        [global::System.Configuration.SettingsProviderAttribute(typeof(PortableSettingsProvider))]
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("true")]
@@ -248,6 +365,7 @@ namespace SCMBot.Properties {
             }
         }
 
+        [global::System.Configuration.SettingsProviderAttribute(typeof(PortableSettingsProvider))]
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]

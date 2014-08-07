@@ -11,12 +11,13 @@ using System.Security.Cryptography;
 using System.Collections;
 using System.Threading;
 using System.ComponentModel;
-using System.Collections.Specialized;
 using System.Media;
+using System.Runtime.InteropServices;
+using System.Security.AccessControl;
 
 namespace SCMBot
 {
-    public delegate void eventDelegate(object sender, string message, int searchId, flag myflag, bool isMain);
+    public delegate void eventDelegate(object sender, object data, int searchId, flag myflag, bool isMain);
     
     [Flags]
     public enum flag : byte
@@ -46,7 +47,8 @@ namespace SCMBot
         Resold = 22,
         SetHeadName = 23,
         ReLogin = 24,
-        ResellErr = 25
+        ResellErr = 25,
+        ActPrice = 26
     }
 
 
@@ -62,23 +64,23 @@ namespace SCMBot
     public partial class Main
     {
         const string logPath = "logfile.txt";
+        const string proxyPath = "proxy.txt";
+
         const string appName = "SCM Bot alpha";
         const string notifTxt = "{0}\r\n{1} {2}";
 
         string aboutApp = appName + "\r\n" + Strings.aboutBody;
 
-        const string homePage = "https://github.com/Maxx53/SteamCMBot";
+        const string homePage = "https://github.com/Maxx53/SCMBot";
         const string helpPage = homePage + "/wiki";
-        const string donateLink = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=demmaxx@gmail.com&lc=RU&item_name=SteamCMBot%20Donate&currency_code=RUB&bn=PP-DonationsBF";
 
-        const string cockPath = "coockies.dat";
-        const string chromeUA = "Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1667.0 Safari/537.36";
+        public const string cockPath = "coockies.dat";
+        const string steamUA = "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36 OPR/22.0.1471.70";
         
         //Just put here your random values
         private const string initVector = "tu89geji340t89u2";
         private const string passPhrase = "o6806642kbM7c5";
         private const int keysize = 256;
-
             
         private void setNotifyText(string mess)
         {
@@ -120,16 +122,18 @@ namespace SCMBot
 
         static public void loadImg(string imgurl, PictureBox picbox, bool drawtext, bool doWhite)
         {
-            if (imgurl == string.Empty)
-                return;
-
-            if (drawtext)
-            {
-                picbox.Image = Properties.Resources.working;
-            }
-
             try
             {
+
+                if (imgurl == string.Empty)
+                    return;
+
+                if (drawtext)
+                {
+                    picbox.Image = Properties.Resources.working;
+                }
+
+
                 WebClient wClient = new WebClient();
                 byte[] imageByte = wClient.DownloadData(imgurl);
                 using (MemoryStream ms = new MemoryStream(imageByte, 0, imageByte.Length))
@@ -140,10 +144,9 @@ namespace SCMBot
                     picbox.Image = resimg;
                 }
             }
-            catch (Exception)
+            catch (Exception exc)
             {
-
-               // throw;
+                Main.AddtoLog(exc.Message);
             }
         }
 
@@ -223,58 +226,74 @@ namespace SCMBot
         }
 
 
+        //Acync file access
         public static void AddtoLog(string logstr)
         {
-            StreamWriter log;
-
-            if (!File.Exists(logPath))
-            {
-                log = new StreamWriter(logPath);
-            }
-            else
-            {
-                log = File.AppendText(logPath);
-            }
-
-            log.WriteLine(DateTime.Now);
-            log.WriteLine(logstr);
-            log.WriteLine();
-            log.Close();
-        }
-
-        static void WriteCookiesToDisk(string file, CookieContainer cookieJar)
-        {
-            using (Stream stream = File.Create(file))
-            {
-                try
-                {
-                    BinaryFormatter formatter = new BinaryFormatter();
-                    formatter.Serialize(stream, cookieJar);
-                }
-                catch (Exception e)
-                {
-                    AddtoLog("Problem writing cookies to disk: " + e.GetType());
-                }
-            }
-        }
-
-        static CookieContainer ReadCookiesFromDisk(string file)
-        {
+            if (!isLog)
+                return;
 
             try
             {
-                using (Stream stream = File.Open(file, FileMode.Open))
+                using (FileStream fs = new FileStream(logPath, FileMode.OpenOrCreate, FileSystemRights.AppendData,
+                FileShare.Write, 4096, FileOptions.None))
                 {
-                    BinaryFormatter formatter = new BinaryFormatter();
-                    return (CookieContainer)formatter.Deserialize(stream);
+                    using (StreamWriter writer = new StreamWriter(fs))
+                    {
+                        writer.AutoFlush = true;
+                        writer.WriteLine(DateTime.Now);
+                        writer.WriteLine(logstr);
+                        writer.WriteLine();
+                        writer.Close();
+                    }
+                    fs.Close();
+                }
+            }
+            catch (Exception)
+            {
+                //dummy
+            }
+          
+        }
+
+        public static void SaveBinary(string p, object o)
+        {
+            try
+            {
+                if (o != null)
+                {
+                    using (Stream stream = File.Create(p))
+                    {
+                        BinaryFormatter bin = new BinaryFormatter();
+                        bin.Serialize(stream, o);
+                    }
                 }
             }
             catch (Exception e)
             {
-                AddtoLog("Problem reading cookies from disk: " + e.GetType());
-                return new CookieContainer();
+                AddtoLog("Saving Binary Exception: " + e.Message);
             }
         }
+
+
+
+        private static object LoadBinary(string p)
+        {
+            try
+            {
+                using (Stream stream = File.Open(p, FileMode.Open))
+                {
+                    BinaryFormatter bin = new BinaryFormatter();
+                    var res = bin.Deserialize(stream);
+                    return res;
+                }
+            }
+            catch (Exception e)
+            {
+                AddtoLog("Error Opening " + p + ": " + e.Message);
+                return null;
+            }
+        }
+
 
 
         static private Color backColor(Image img, bool doWhite)
@@ -356,7 +375,7 @@ namespace SCMBot
                     //request.KeepAlive = true;
 
                     //LOL, really?
-                    request.UserAgent = chromeUA;
+                    request.UserAgent = steamUA;
 
                     request.Referer = refer;
                     request.ContentType = "application/x-www-form-urlencoded";
@@ -397,9 +416,39 @@ namespace SCMBot
 
 
 
-        public static string GetRequest(string url, CookieContainer cookie)
+
+        public static int GetFreeIndex()
+        {
+            int min = proxyList[0].WorkLoad;
+            int minIndex = 0;
+            bool used = false;
+
+            for (int i = 0; i < proxyList.Count; i++)
+            {
+                if (proxyList[i].WorkLoad < min)
+                {
+                    if (proxyList[i].InUsing == false)
+                    {
+                        min = proxyList[i].WorkLoad;
+                        minIndex = i;
+                        used = false;
+                    }
+                    else used = true;
+                }
+            }
+
+            if (!used)
+                return minIndex;
+            else return -1;
+        }
+
+
+        public static string GetRequest(string url, CookieContainer cookie, bool UseProxy, bool keepAlive)
         {
                 string content = string.Empty;
+                int proxyNum = 0;
+
+                bool proxyUsed = false;
 
                 try
                 {
@@ -409,14 +458,29 @@ namespace SCMBot
                     //New
                     request.Proxy = null;
                     request.Timeout = 30000;
+                
                     //KeepAlive is True by default
-                    //request.KeepAlive = true;
+                    //request.KeepAlive = keepAlive;
 
                     //LOL, really?
-                    request.UserAgent = chromeUA;
+                    request.UserAgent = steamUA;
 
                     request.Accept = "application/json";
                     request.CookieContainer = cookie;
+
+
+                    if (UseProxy && (proxyList.Count != 0))
+                    {
+                        proxyNum = GetFreeIndex();
+                        if (proxyNum != -1)
+                        {
+                            proxyList[proxyNum].InUsing = true;
+                            proxyList[proxyNum].WorkLoad++;
+                            request.Proxy = proxyList[proxyNum].Proxy;
+                            proxyUsed = true;
+                        }
+                    }
+
 
                     HttpWebResponse response = (HttpWebResponse)request.GetResponse();
                     var stream = new StreamReader(response.GetResponseStream());
@@ -431,17 +495,81 @@ namespace SCMBot
                 {
                     if (e.Status == WebExceptionStatus.ProtocolError)
                     {
-                        WebResponse resp = e.Response;
-                        using (StreamReader sr = new StreamReader(resp.GetResponseStream()))
+
+                        HttpWebResponse resp = (HttpWebResponse)e.Response;
+                        int statCode = (int)resp.StatusCode;
+
+                        if (statCode == 403)
                         {
-                            content = sr.ReadToEnd();
+                            content = "403";
+                        }
+                        else
+                        {
+                            using (StreamReader sr = new StreamReader(resp.GetResponseStream()))
+                            {
+                                content = sr.ReadToEnd();
+                            }
                         }
                     }
 
                 }
 
+                //Free proxy
+                if (UseProxy && (proxyList.Count != 0) && proxyUsed)
+                {
+                    proxyList[proxyNum].InUsing = false;
+                }
+
                 return content;
 
+        }
+
+
+        //That's all folks. Not precisely.
+        public static string CalcWithFee(string strInput)
+        {
+
+            int intres = 0;
+            int input = Convert.ToInt32(strInput);
+
+            //Magic
+            double temp = input / 1.15;
+
+            if (input > 10)
+                intres = Convert.ToInt32(Math.Ceiling(temp));
+            else
+                if (input < 4)
+                {
+                    if (input == 3)
+                        intres = 1;
+                    else
+                        intres = 0;
+                }
+                else
+                    intres = Convert.ToInt32(temp) - 1;
+
+            return intres.ToString();
+        }
+
+
+
+        public static string AddFee(string strInput)
+        {
+
+            int intres = 0;
+            int input = Convert.ToInt32(strInput);
+            double temp = 0;
+
+            if (input < 20)
+                temp = 2;
+            else
+            {
+                temp = input * 0.15;
+            }
+
+            intres = input + Convert.ToInt32(temp);
+
+            return intres.ToString();
         }
 
         private string GetScanErrMess(string message)
@@ -459,6 +587,10 @@ namespace SCMBot
                 case "3": mess = "Parsing fail";
                     break;
                 case "4": mess = "Wait to Relogin";
+                    break;
+                case "5": mess = "Too much requests per second";
+                    break;
+                case "6": mess = "Item is not supported in html source!";
                     break;
                 default: mess = "Unknown error";
                     break;
@@ -496,23 +628,47 @@ namespace SCMBot
 
         public static string Decrypt(string cipherText)
         {
-            byte[] initVectorBytes = Encoding.ASCII.GetBytes(initVector);
-            byte[] cipherTextBytes = Convert.FromBase64String(cipherText);
-            PasswordDeriveBytes password = new PasswordDeriveBytes(passPhrase, null);
-            byte[] keyBytes = password.GetBytes(keysize / 8);
-            RijndaelManaged symmetricKey = new RijndaelManaged();
-            symmetricKey.Mode = CipherMode.CBC;
-            ICryptoTransform decryptor = symmetricKey.CreateDecryptor(keyBytes, initVectorBytes);
-            MemoryStream memoryStream = new MemoryStream(cipherTextBytes);
-            CryptoStream cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read);
-            byte[] plainTextBytes = new byte[cipherTextBytes.Length];
-            int decryptedByteCount = cryptoStream.Read(plainTextBytes, 0, plainTextBytes.Length);
-            memoryStream.Close();
-            cryptoStream.Close();
-            return Encoding.UTF8.GetString(plainTextBytes, 0, decryptedByteCount);
+            try
+            {
+                byte[] initVectorBytes = Encoding.ASCII.GetBytes(initVector);
+                byte[] cipherTextBytes = Convert.FromBase64String(cipherText);
+                PasswordDeriveBytes password = new PasswordDeriveBytes(passPhrase, null);
+                byte[] keyBytes = password.GetBytes(keysize / 8);
+                RijndaelManaged symmetricKey = new RijndaelManaged();
+                symmetricKey.Mode = CipherMode.CBC;
+                ICryptoTransform decryptor = symmetricKey.CreateDecryptor(keyBytes, initVectorBytes);
+                MemoryStream memoryStream = new MemoryStream(cipherTextBytes);
+                CryptoStream cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read);
+                byte[] plainTextBytes = new byte[cipherTextBytes.Length];
+                int decryptedByteCount = cryptoStream.Read(plainTextBytes, 0, plainTextBytes.Length);
+                memoryStream.Close();
+                cryptoStream.Close();
+                return Encoding.UTF8.GetString(plainTextBytes, 0, decryptedByteCount);
+            }
+            catch (Exception)
+            {
+                return "Password";
+            }
         }
 
-        public void StartCmdLine(string process, string param, bool wait)
+
+
+        public static byte[] GetHash(string inputString)
+        {
+            HashAlgorithm algorithm = MD5.Create();  //or use SHA1.Create();
+            return algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
+        }
+
+        public static string GetHashString(string inputString)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (byte b in GetHash(inputString))
+                sb.Append(b.ToString("X2"));
+
+            return sb.ToString();
+        }
+
+        public static void StartCmdLine(string process, string param, bool wait)
         {
             System.Diagnostics.Process p = new System.Diagnostics.Process();
             p.StartInfo = new System.Diagnostics.ProcessStartInfo(process, param);
@@ -520,8 +676,87 @@ namespace SCMBot
             if (wait)
                 p.WaitForExit();
         }
+
     }
 
+
+
+    public class ProxyItem
+    {
+        public ProxyItem(WebProxy proxy, bool inUsing, int workLoad)
+        {
+            this.Proxy = proxy;
+            this.InUsing = inUsing;
+            this.WorkLoad = workLoad;
+        }
+
+        public WebProxy Proxy { set; get; }
+        public bool InUsing { set; get; }
+        public int WorkLoad { set; get; }
+    }
+
+
+    public class ProxyList : List<ProxyItem>
+    {
+        public void Add(string ProxyStr)
+        {
+            try
+            {
+                this.Add(new ProxyItem(new WebProxy(ProxyStr, false), false, 0));
+            }
+            catch (Exception)
+            {
+                // dummy
+            }
+           
+        }
+    }
+
+
+    public class StrParam
+    {
+        public StrParam(string p1, string p2)
+        {
+            this.P1 = p1;
+            this.P2 = p2;
+        }
+
+        public StrParam(string p1, string p2, string p3, string p4)
+        {
+            this.P1 = p1;
+            this.P2 = p2;
+            this.P3 = p3;
+            this.P4 = p4;
+        }
+
+        public string P1 { set; get; }
+        public string P2 { set; get; }
+        public string P3 { set; get; }
+        public string P4 { set; get; }
+    }
+
+    [Serializable]
+    public class MainFormParams
+    {
+        public MainFormParams(Size size, Point location, FormWindowState state, int split1, int split2, int split3)
+        {
+            this.FrmSize = size;
+            this.Location = location;
+            this.FrmState = state;
+
+            //Сплит - хуесос. Hello, Joyreactor!
+            this.Split1 = split1;
+            this.Split2 = split2;
+            this.Split3 = split3;
+        }
+
+        public Size FrmSize { set; get; }
+        public Point Location { set; get; }
+        public FormWindowState FrmState { set; get; }
+        public int Split1 { set; get; }
+        public int Split2 { set; get; }
+        public int Split3 { set; get; }
+    }
 
     [Serializable]
     public class saveTabLst : List<saveTab>
@@ -544,6 +779,26 @@ namespace SCMBot
             this.ResellType = resellType;
             this.ResellPrice = resellPrice;
             this.StatId = statId;
+        }
+
+        public saveTab(string link)
+        {
+            this.Link = link;
+        }
+
+        //copy constructor
+        public saveTab(saveTab tocopy)
+        {
+            this.Name = tocopy.Name;
+            this.Price = tocopy.Price;
+            this.Link = tocopy.Link;
+            this.ImgLink = tocopy.ImgLink;
+            this.Delay = tocopy.Delay;
+            this.BuyQnt = tocopy.BuyQnt;
+            this.ToBuy = tocopy.ToBuy;
+            this.ResellType = tocopy.ResellType;
+            this.ResellPrice = tocopy.ResellPrice;
+            this.StatId = tocopy.StatId;
         }
 
         public string Name { set; get; }
@@ -580,10 +835,18 @@ namespace SCMBot
 
         public class LogItem
         {
-            public LogItem(int id, string text)
+            public LogItem(int id, string rawPrice, DateTime time, bool addcur, string curr)
             {
                 this.Id = id;
-                this.Text = text;
+
+                this.RawPrice = rawPrice;
+                this.Time = time;
+                this.AddCurr = addcur;
+
+                if (addcur)
+                    this.Text = string.Format("{0} {1} {2}", time.ToString("HH:mm:ss"), DoFracture(rawPrice), curr);
+                else
+                    this.Text = string.Format("{0} {1}", time.ToString("HH:mm:ss"), rawPrice); 
             }
 
             public override string ToString()
@@ -591,8 +854,36 @@ namespace SCMBot
                 return this.Text;
             }
 
+
+            public static string DoFracture(string input)
+            {
+                string prtoTxt = "0,";
+
+                switch (input.Length)
+                {
+                    case 0:
+                        prtoTxt = "0";
+                        break;
+                    case 1:
+                        prtoTxt += "0" + input;
+                        break;
+                    case 2:
+                        prtoTxt += input;
+                        break;
+                    default:
+                        prtoTxt = input.Insert(input.Length - 2, ",");
+                        break;
+                }
+                return prtoTxt;
+            }
+
+
             public int Id { get; set; }
             public string Text { get; set; }
+
+            public string RawPrice { get; set; }
+            public DateTime Time { get; set; }
+            public bool AddCurr { get; set; }
         }
 
         public MainScanItem(saveTab scanParams, CookieContainer cookie, eventDelegate deleg, int currency, bool ignoreWarn, int resDel)
@@ -610,4 +901,50 @@ namespace SCMBot
   
     }
 
+
+    public static class FlashWindow
+    {
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool FlashWindowEx(ref FLASHWINFO pwfi);
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct FLASHWINFO
+        {
+            public uint cbSize;
+            public IntPtr hwnd;
+            public uint dwFlags;
+            public uint uCount;
+            public uint dwTimeout;
+        }
+
+        public const uint FLASHW_ALL = 3;
+        public const uint FLASHW_TIMERNOFG = 12;
+  
+        public static bool Flash(System.Windows.Forms.Form form)
+        {
+            if (Win2000OrLater)
+            {
+                FLASHWINFO fi = Create_FLASHWINFO(form.Handle, FLASHW_ALL | FLASHW_TIMERNOFG, uint.MaxValue, 0);
+                return FlashWindowEx(ref fi);
+            }
+            return false;
+        }
+
+        private static FLASHWINFO Create_FLASHWINFO(IntPtr handle, uint flags, uint count, uint timeout)
+        {
+            FLASHWINFO fi = new FLASHWINFO();
+            fi.cbSize = Convert.ToUInt32(Marshal.SizeOf(fi));
+            fi.hwnd = handle;
+            fi.dwFlags = flags;
+            fi.uCount = count;
+            fi.dwTimeout = timeout;
+            return fi;
+        }
+
+        private static bool Win2000OrLater
+        {
+            get { return System.Environment.OSVersion.Version.Major >= 5; }
+        }
+    }
 }

@@ -63,10 +63,11 @@ namespace SCMBot {
         /// <summary>
         ///   Ищет локализованную строку, похожую на Opensource Project
         ///Note: Program may contain critical bugs, for testing purposes only!
+        ///Website: http://scmbot.com
         ///Copyright © 2013-2014 Maxx53
         ///
         ///
-        ///Do you want to vist Github page?.
+        ///Do you want to visit Github page?.
         /// </summary>
         internal static string aboutBody {
             get {
@@ -174,6 +175,15 @@ namespace SCMBot {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=demmaxx@gmail.com&amp;lc=EN&amp;item_name=SteamCMBot%20Donate&amp;currency_code=RUB&amp;bn=PP-DonationsBF.
+        /// </summary>
+        internal static string donateLink {
+            get {
+                return ResourceManager.GetString("donateLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Error loading account information!.
         /// </summary>
         internal static string ErrAccInfo {
@@ -220,6 +230,25 @@ namespace SCMBot {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Price Graph for {0}.
+        /// </summary>
+        internal static string GraphFor {
+            get {
+                return ResourceManager.GetString("GraphFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Time: {0}
+        ///Price: {1} {2}.
+        /// </summary>
+        internal static string GraphTip {
+            get {
+                return ResourceManager.GetString("GraphTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на In Inventory ({0}).
         /// </summary>
         internal static string inInventory {
@@ -252,6 +281,15 @@ namespace SCMBot {
         internal static string LoadInvFirst {
             get {
                 return ResourceManager.GetString("LoadInvFirst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Log for this Item is Empty..
+        /// </summary>
+        internal static string LogEmpty {
+            get {
+                return ResourceManager.GetString("LogEmpty", resourceCulture);
             }
         }
         

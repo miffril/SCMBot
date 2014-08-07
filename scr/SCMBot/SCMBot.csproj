@@ -13,6 +13,7 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -25,7 +26,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -51,12 +51,34 @@
   <PropertyGroup>
     <ApplicationIcon>Steam.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
       <HintPath>3rdParty\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -67,6 +89,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CookieFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CookieFrm.Designer.cs">
+      <DependentUpon>CookieFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GraphFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GraphFrm.Designer.cs">
+      <DependentUpon>GraphFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListViewHelper.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -82,13 +117,20 @@
     <Compile Include="MainUtils.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PortableSettingsProvider.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Settings.cs">
+    <Compile Include="ProxyStatsFrm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Settings.Designer.cs">
-      <DependentUpon>Settings.cs</DependentUpon>
+    <Compile Include="ProxyStatsFrm.Designer.cs">
+      <DependentUpon>ProxyStatsFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SettingsFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SettingsFrm.Designer.cs">
+      <DependentUpon>SettingsFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="SteamSite.cs" />
     <Compile Include="SteamUtils.cs" />
@@ -102,6 +144,32 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Strings.fr-FR.Designer.cs">
+      <DependentUpon>Strings.fr-FR.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="CookieFrm.fr-FR.resx">
+      <DependentUpon>CookieFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CookieFrm.resx">
+      <DependentUpon>CookieFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CookieFrm.ru-RU.resx">
+      <DependentUpon>CookieFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialog.fr-FR.resx">
+      <DependentUpon>Dialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GraphFrm.fr-FR.resx">
+      <DependentUpon>GraphFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GraphFrm.resx">
+      <DependentUpon>GraphFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main.fr-FR.resx">
+      <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
@@ -121,11 +189,17 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Settings.resx">
-      <DependentUpon>Settings.cs</DependentUpon>
+    <EmbeddedResource Include="ProxyStatsFrm.resx">
+      <DependentUpon>ProxyStatsFrm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Settings.ru-RU.resx">
-      <DependentUpon>Settings.cs</DependentUpon>
+    <EmbeddedResource Include="SettingsFrm.fr-FR.resx">
+      <DependentUpon>SettingsFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SettingsFrm.resx">
+      <DependentUpon>SettingsFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SettingsFrm.ru-RU.resx">
+      <DependentUpon>SettingsFrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Strings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -135,7 +209,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.ru-RU.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="app.config" />
+    <EmbeddedResource Include="Strings.fr-FR.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.fr-FR.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -215,6 +292,13 @@
     <None Include="Resources\error.wav" />
     <None Include="Resources\success.wav" />
     <None Include="Resources\ding.wav" />
+    <None Include="Resources\coins.png" />
+    <None Include="Resources\box.png" />
+    <None Include="Resources\accept.png" />
+    <None Include="Resources\graph.png" />
+    <None Include="Resources\copy.png" />
+    <None Include="Resources\export.png" />
+    <None Include="Resources\import.png" />
     <Content Include="Steam.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

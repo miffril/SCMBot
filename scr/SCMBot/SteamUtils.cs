@@ -29,7 +29,7 @@ namespace SCMBot
 
         const string _blist = _mainsiteS + "market/buylisting/";
 
-        const string _lists = _market + "listings/";
+        public const string _lists = _market + "listings/";
 
 
         //Todo: JSON
@@ -53,7 +53,8 @@ namespace SCMBot
         //Old Url format, recommended
         const string _jsonInv = _mainsite + "profiles/{0}/inventory/json/{1}";
 
-        public const string imgUri = "http://cdn.steamcommunity.com/economy/image/";
+        //Fix
+        public const string imgUri = "http://steamcommunity-a.akamaihd.net/economy/image/";
 
         //public const string invImgUrl = imgUri + "{0}/96fx96f";
         public const string fndImgUrl = imgUri + "{0}/62fx62f";
@@ -64,6 +65,13 @@ namespace SCMBot
         public const string searchPageReq = "{0}&start={1}0";
 
         public const string recentMarket = _market + "recent/";
+
+        //New, update fix
+        public const string priceOverview = _market + "priceoverview/?{0}&appid={1}&market_hash_name={2}";
+        public const string jsonAddonUrl = "?country={0}&language={1}&currency={2}";
+
+        //For html parsing, bulding own json!
+        public string  buildJson = "\"success\":true,\"results_html\":\"\",\"listinginfo\":{0},\"assets\":{1}";
 
         //================================ Consts ======================= End ===============================================
 
@@ -95,7 +103,7 @@ namespace SCMBot
 
         public class InventItem
         {
-            public InventItem(string assetid, string name, string type, string price, string imglink, string marketName, bool onSale, bool marketable)
+            public InventItem(string assetid, string name, string type, string price, string imglink, string marketName, bool onSale, bool marketable, string pageLink)
             {
                 this.Name = name;
                 this.AssetId = assetid;
@@ -104,7 +112,7 @@ namespace SCMBot
                 this.ImgLink = imglink;
                 this.OnSale = onSale;
                 this.MarketName = marketName;
-
+                this.PageLnk = pageLink;
                 //Dummy
                 this.Marketable = marketable;
             }
@@ -116,6 +124,7 @@ namespace SCMBot
             public string AssetId { set; get; }
             public string MarketName { set; get; }
             public bool OnSale { set; get; }
+            public string PageLnk { set; get; }
 
             //Dummy
             public bool Marketable { set; get; }
@@ -309,6 +318,9 @@ namespace SCMBot
             [JsonProperty("market_name")]
             public string Name { get; set; }
 
+            [JsonProperty("name")]
+            public string SimpleName { get; set; }
+
             [JsonProperty("icon_url")]
             public string IconUrl { get; set; }
 
@@ -320,6 +332,10 @@ namespace SCMBot
 
             [JsonProperty("marketable")]
             public bool Marketable { get; set; }
+
+            //new
+            [JsonProperty("appid")]
+            public string AppId { get; set; }
             
         }
 
@@ -351,7 +367,7 @@ namespace SCMBot
             [JsonProperty("results_html")]
             public string HtmlRes { get; set; }
 
-            [JsonProperty("listinginfo")]
+            [JsonProperty(PropertyName = "listinginfo", Required = Required.Default)]
             public IDictionary<string, ListingInfo> Listing { get; set; }
 
             [JsonProperty("assets")]
@@ -391,7 +407,7 @@ namespace SCMBot
 
         public class Assets
         {
-            [JsonProperty("listinginfo")]
+            [JsonProperty(PropertyName = "listinginfo", Required = Required.Default)]
             public IDictionary<string, ListingInfo> Listing { get; set; }
 
             [JsonProperty("converted_fee")]
@@ -429,11 +445,23 @@ namespace SCMBot
             [JsonProperty("total_count")]
             public string TotalCount { get; set; }
         }
+        
+        public class PriceOverview
+        {
+            [JsonProperty("success")]
+            public bool Success { get; set; }
+            [JsonProperty("lowest_price")]
+            public string Lowest { get; set; }
+            [JsonProperty("volume")]
+            public string Volume { get; set; }
+            [JsonProperty("median_price")]
+            public string Median { get; set; }
+        }
 
 
         //End JSON
 
-        protected void doMessage(flag myflag, int searchId, string message, bool isMain)
+        protected void doMessage(flag myflag, int searchId, object message, bool isMain)
         {
             try
             {
@@ -466,22 +494,24 @@ namespace SCMBot
             doMessage(flag.StripImg, 0, string.Empty, true);
             var res = Main.SendPostRequest(data, url, refer, cookieCont, tolog);
             doMessage(flag.StripImg, 1, string.Empty, true);
-            
+
             Main.reqPool.Release();
 
             return res;
 
         }
 
-        private string SendGet(string url, CookieContainer cok)
+        private string SendGet(string url, CookieContainer cok, bool UseProxy, bool keepAlive)
         {
             Main.reqPool.WaitOne();
 
             doMessage(flag.StripImg, 0, string.Empty, true);
-            var res = Main.GetRequest(url, cookieCont);
+            var res = Main.GetRequest(url, cookieCont, UseProxy, keepAlive);
             doMessage(flag.StripImg, 1, string.Empty, true);
             
             //MessageBox.Show("blocked");
+            if (Main.ReqDelay > 0)
+                Main.reqPool.WaitOne(Main.ReqDelay);
 
             Main.reqPool.Release();
 
@@ -567,33 +597,59 @@ namespace SCMBot
 
         //steam utils
 
-        public static string DoFracture(string input)
-        {
-            string prtoTxt = "0,";
 
-            switch (input.Length)
+        public static AppType GetUrlApp(int appIndx, bool isGetInv)
+        {
+            string app = "753";
+            string cont = "6";
+
+            switch (appIndx)
             {
-                case 0:
-                    prtoTxt = "0";
+                case 0: //Trading Cards
+                    app = "753";
+                    cont = "6";
                     break;
-                case 1:
-                    prtoTxt += "0" + input;
+                case 1:  //TF2
+                    app = "440";
+                    cont = "2";
                     break;
-                case 2:
-                    prtoTxt += input;
+                case 2:  //DOTA2
+                    app = "570";
+                    cont = "2";
                     break;
-                default:
-                    prtoTxt = input.Insert(input.Length - 2, ",");
+                case 3: //CS:GO
+                    app = "730";
+                    cont = "2";
+                    break;
+                case 4: //BattleBlock Theater
+                    app = "238460";
+                    cont = "2";
+                    break;
+                case 5: //Warframe
+                    app = "230410";
+                    cont = "2";
+                    break;
+                case 6: //Sins of a Dark Age
+                    app = "251970";
+                    cont = "1";
+                    break;
+                case 7: //Path of Exile
+                    app = "238960";
+                    cont = "1";
                     break;
             }
-            return prtoTxt;
+            if (isGetInv)
+                return new AppType(string.Format("{0}/{1}", app, cont), string.Empty);
+            else return new AppType(app, cont);
         }
 
 
-        public string GetNameBalance(CookieContainer cock, CurrInfoLst currLst)
+
+
+        public StrParam GetNameBalance(CookieContainer cock, CurrInfoLst currLst)
         {
             Main.AddtoLog("Getting account name and balance...");
-            string markpage = SendGet(_market, cock);
+            string markpage = SendGet(_market, cock, false, true);
 
             //For testring purposes!
             //string markpage = File.ReadAllText(@"C:\dollars.html");
@@ -603,22 +659,28 @@ namespace SCMBot
             
             if (parseName == "")
             {
-                return string.Empty;
+                return null;
             }
 
             //accName = parseName;
             //Set profileId for old Url format
             myUserId = Regex.Match(markpage, "(?<=g_steamID = \")(.*)(?=\";)").ToString();
 
-            string parseImg = Regex.Match(markpage, "(?<=headerUserAvatarIcon\" src=\")(.*)(?=<div id=\"global_action_menu\">)", RegexOptions.Singleline).ToString();
-            parseImg = parseImg.Substring(0, parseImg.Length - 46);
-
+            //30.05.14 Update
+            string parseImg = Regex.Match(markpage, "(?<=avatarIcon\"><img src=\")(.*)(?=\" alt=\"\"></span>)", RegexOptions.Singleline).ToString();
+           
             string parseAmount = Regex.Match(markpage, "(?<=marketWalletBalanceAmount\">)(.*)(?=</span>)").ToString();
 
-            currLst.GetType(parseAmount);
+            string country = Regex.Match(markpage, "(?<=g_strCountryCode = \")(.*)(?=\";)").ToString();
+            string strlang = Regex.Match(markpage, "(?<=g_strLanguage = \")(.*)(?=\";)").ToString();
 
+            currLst.GetType(parseAmount);
             parseAmount = currLst.ReplaceAscii(parseAmount);
-            return string.Format("{0}|{1}|{2}", parseName, parseAmount, parseImg);
+            
+            //?country=RU&language=russian&currency=5&count=20
+            string Addon = string.Format(jsonAddonUrl, country, strlang, currLst.GetCode());
+
+            return new StrParam(parseName, parseAmount, parseImg, Addon);
         }
 
 
@@ -701,32 +763,54 @@ namespace SCMBot
             return false;
         }
 
-        public byte ParseLotList(string content, List<ScanItem> lst, CurrInfoLst currLst, bool full)
+        public byte ParseLotList(string content, List<ScanItem> lst, CurrInfoLst currLst, bool full, bool ismain)
         {
+
             lst.Clear();
 
-            if (content == string.Empty)
+            //Smart ass!
+            if (Main.isHTML && ismain)
             {
-                //Content empty
-                return 0;
+                string jsonAssets = Regex.Match(content, @"(?<=g_rgAssets \= )(.*)(?=;
+	var g_rgCurrency)", RegexOptions.Singleline).ToString();
+
+                if (jsonAssets == string.Empty)
+                    return 6;
+
+                string jsonListInfo = Regex.Match(content, @"(?<=g_rgListingInfo \= )(.*)(?=;
+	var g_plotPriceHistory)", RegexOptions.Singleline).ToString();
+
+                content = "{" + string.Format(buildJson, jsonListInfo, jsonAssets) + "}";
             }
-            else if ((content.Length < 200) && (content[0] == '{'))
+            else
             {
-                //Json without data
-                return 1;
-            }
-            else if (content[0] != '{')
-            {
-                //Json is not valid
-                return 2;
+
+                if (content == string.Empty)
+                {
+                    //Content empty
+                    return 0;
+                }
+                else if (content == "403")
+                {
+                    //403 Forbidden
+                    return 5;
+                }
+                else if (content[0] != '{')
+                {
+                    //Json is not valid
+                    return 2;
+                }
             }
 
             try
             {
+                //"success":false
+                if (content.Substring(11, 1) == "f")
+                    return 1;
 
                 var pageJS = JsonConvert.DeserializeObject<PageBody>(content);
 
-                if (pageJS.Listing.Count != 0 && pageJS.Success == true)
+                if (pageJS.Listing.Count != 0)
                 {
                     foreach (ListingInfo ourItem in pageJS.Listing.Values)
                     {
@@ -751,7 +835,7 @@ namespace SCMBot
                             //Damn, Mr.Crowley... WTF!?
                             if (NotSetHead && !full)
                             {
-                                doMessage(flag.SetHeadName, scanID, ourItemInfo.name, true);
+                                doMessage(flag.SetHeadName, scanID, new StrParam(ourItemInfo.name, ourItemInfo.icon_url), true);
                                 scanInput.Name = ourItemInfo.name;
                                 NotSetHead = false;
                             }
@@ -767,7 +851,7 @@ namespace SCMBot
                         //If we load 1st lot and it's not null
                         if (!full && !isNull)
                             //Fine!
-                            return 5;
+                            return 7;
                     }
                 }
                 else return 1;
@@ -776,7 +860,7 @@ namespace SCMBot
             catch(Exception e)
             {
                 //Parsing fail
-                Main.AddtoLog(e.Message);
+                Main.AddtoLog("Err Source: " + e.Message);
                 return 3;
             }
 
@@ -784,7 +868,7 @@ namespace SCMBot
                 return 0;
             else
                 //Fine!
-                return 5;
+                return 7;
         }
 
 
@@ -810,11 +894,12 @@ namespace SCMBot
                         {
                             string currmatch = match.Groups[1].Value;
 
-                            string ItemUrl = Regex.Match(currmatch, "(?<==\")(.*)(?=\">)").ToString();
+                            //Fix for Steam update 5/01/14 4:00 PM PST
+                            string ItemUrl = Regex.Match(currmatch, "(?<==\")(.*)(?=\" id)").ToString();
 
                             string ItemQuan = Regex.Match(currmatch, "(?<=num_listings_qty\">)(.*)(?=</span>)").ToString();
 
-                            //Fix fot Steam update 3/26/14 4:00 PM PST
+                            //Fix for Steam update 3/26/14 4:00 PM PST
                             string ItemPrice = Regex.Match(currmatch, "(?<=<span style=\"color:)(.*)(?=<div class=\"market_listing_right_cell)", RegexOptions.Singleline).ToString();
 
                             //Удаляем ascii кода нашей текущей валюты
@@ -839,7 +924,7 @@ namespace SCMBot
 
                             string ItemGame = Regex.Match(currmatch, "(?<=game_name\">)(.*)(?=</span>)").ToString();
 
-                            string ItemImg = Regex.Match(currmatch, "(?<=com/economy/image/)(.*)(/62fx62f)", RegexOptions.Singleline).ToString();
+                            string ItemImg = Regex.Match(currmatch, "(?<=net/economy/image/)(.*)(/62fx62f)", RegexOptions.Singleline).ToString();
 
                             //Заполняем список 
                             lst.Add(new SearchItem(ItemName, ItemGame, ItemUrl, ItemQuan, ItemPrice, ItemImg));
@@ -864,6 +949,7 @@ namespace SCMBot
         public int ParseInventory(string content)
         {
             inventList.Clear();
+
             try
             {
                 var rgDescr = JsonConvert.DeserializeObject<InventoryData>(content);
@@ -878,14 +964,21 @@ namespace SCMBot
                     if (!ourItem.Marketable)
                         price = "1";
 
-                    //Careful, this action takes time!
-                    //string cont = GetRequest(_lists + GetUrlApp(invApp, false).App + "/" + ourItem.MarketName, cookieCont);
-                    //var tempLst = new List<ScanItem>();
-                    //ParseLotList(cont, tempLst, currencies);
-                    //if (tempLst.Count != 0)
-                    //  price = tempLst[0].Price;
+                    //fix for special symbols in Item Name
+                    string markname = string.Empty;
 
-                    inventList.Add(new InventItem(prop.assetid, ourItem.Name, ourItem.Type, price, ourItem.IconUrl, ourItem.MarketName, false, ourItem.Marketable));
+
+                    if ((ourItem.MarketName == null) && (ourItem.Name == string.Empty))
+                    {
+                        ourItem.Name = ourItem.SimpleName;
+                        ourItem.MarketName = ourItem.SimpleName;
+                    }
+
+                    //BattleBlock Theater Fix
+                    markname = Uri.EscapeDataString(ourItem.MarketName);
+                    string pageLnk = string.Format("{0}/{1}/{2}", _lists, ourItem.AppId, markname);
+
+                    inventList.Add(new InventItem(prop.assetid, ourItem.Name, ourItem.Type, price, ourItem.IconUrl, ourItem.MarketName, false, ourItem.Marketable, pageLnk));
                 }
             }
             catch (Exception e)
@@ -917,16 +1010,18 @@ namespace SCMBot
 
                     string listId = Regex.Match(currmatch, "(?<=mylisting_)(.*)(?=_image\" src=)").ToString();
 
-                    string captainPrice = Regex.Match(currmatch, "(?<=market_listing_price\">)(.*)(?=			</span>)", RegexOptions.Singleline).ToString().Trim();
+                    string appidRaw = Regex.Match(currmatch, "(?<=market_listing_item_name_link)(.*)(?=</a></span>)").ToString();
+                    string pageLnk = Regex.Match(appidRaw, "(?<=href=\")(.*)(?=\">)").ToString();
 
-                    captainPrice = Regex.Replace(captainPrice, currLst.GetAscii(), string.Empty);
-
+                    string captainPrice = Regex.Match(currmatch, "(?<=This is the price the buyer pays.\">)(.*)(?=This is how much you will receive)", RegexOptions.Singleline).ToString().Trim();
+                   
+                    captainPrice = GetSweetPrice(Regex.Replace(captainPrice, currLst.GetAscii(), string.Empty));
 
                     string[] LinkName = Regex.Match(currmatch, "(?<=_name_link\" href=\")(.*)(?=</a></span><br/>)").ToString().Split(new string[] { "\">" }, StringSplitOptions.None);
                    
                     string ItemType = Regex.Match(currmatch, "(?<=_listing_game_name\">)(.*)(?=</span>)").ToString();
 
-                    inventList.Add(new InventItem(listId, LinkName[1], ItemType, captainPrice, ImgLink, string.Empty, true, true));
+                    inventList.Add(new InventItem(listId, LinkName[1], ItemType, captainPrice, ImgLink, string.Empty, true, true, pageLnk));
 
                 }
 
