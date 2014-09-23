@@ -543,6 +543,8 @@ namespace SCMBot
                             doMessage(flag.Send_cancel, scanID, string.Empty, ismain);
                         }
 
+						Main.AddToBuyLog(ourItem.ItemName, totalStr, Input.Link, ourItem.Type.App, ourItem.ListringId);
+
                         return buyCont;
 
                     }
@@ -634,15 +636,15 @@ namespace SCMBot
                         string totalStr = Convert.ToString(lotList[0].Price + lotList[0].Fee);
                         var buyresp = BuyItem(cookieCont, sessid, lotList[0].ListringId, scanInput.Link, lotList[0].Price.ToString(), lotList[0].Fee.ToString(), totalStr);
 
-                        BuyNow = false;
-                        if (buyresp.Succsess)
-                        {
-                            doMessage(flag.Success_buy, scanID, buyresp.Mess, true);
-                        }
-                        else
-                        {
-                            doMessage(flag.Error_buy, scanID, buyresp.Mess, true);
-                        }
+						BuyNow = false;
+						if (buyresp.Succsess)
+						{
+							doMessage(flag.Success_buy, scanID, buyresp.Mess, true);
+						}
+						else
+						{
+							doMessage(flag.Error_buy, scanID, buyresp.Mess, true);
+						}
                     }
                     return;
                 }

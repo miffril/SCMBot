@@ -227,23 +227,38 @@ namespace SCMBot
 
 
         //Acync file access
-        public static void AddtoLog(string logstr)
+        public static void AddtoLog(string logstr, string log = logPath, int isBuyData = 0)
         {
             if (!isLog)
                 return;
 
             try
             {
-                using (FileStream fs = new FileStream(logPath, FileMode.OpenOrCreate, FileSystemRights.AppendData,
+	            bool writeFirstLine = File.Exists(log);
+	            using (FileStream fs = new FileStream(log, FileMode.OpenOrCreate, FileSystemRights.AppendData,
                 FileShare.Write, 4096, FileOptions.None))
                 {
                     using (StreamWriter writer = new StreamWriter(fs))
                     {
-                        writer.AutoFlush = true;
-                        writer.WriteLine(DateTime.Now);
-                        writer.WriteLine(logstr);
-                        writer.WriteLine();
-                        writer.Close();
+
+						writer.AutoFlush = true;
+
+	                    if (isBuyData == 1)
+	                    {
+							if (!writeFirstLine)
+		                    {
+								writer.WriteLine("buy_date;buy_price;item_name;item_link;game_id;listing_id");
+		                    }
+							writer.WriteLine(logstr);
+	                    }
+	                    else
+	                    {							
+							writer.WriteLine(DateTime.Now);
+							writer.WriteLine(logstr);
+							writer.WriteLine();
+	                    }
+						writer.Close();    
+                        
                     }
                     fs.Close();
                 }
@@ -255,7 +270,14 @@ namespace SCMBot
           
         }
 
-        public static void SaveBinary(string p, object o)
+	    public static void AddToBuyLog(string itemName, string buyPrice, string itemLink, string gameID, string listingID)
+	    {
+			string currentDate = DateTime.Now.ToString("dd-MM-yyyy");
+		    string buyData = currentDate + ";" + buyPrice + ";" + itemName + ";" + itemLink + ";" + gameID + ";" + listingID;
+			AddtoLog(buyData, "buydata.csv", 1);
+	    }
+
+	    public static void SaveBinary(string p, object o)
         {
             try
             {
